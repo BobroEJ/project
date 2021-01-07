@@ -1,27 +1,87 @@
 'use strict';
 
-const str = 'test';
+let numberOfFilms;
 
-console.log(str.toUpperCase());
-console.log(str);
+function start() {
+    numberOfFilms =
+    +prompt('Сколько фильмов вы посмотрели за последнее время?', '');
 
-const fruit = 'Some fruit m';
+    while (numberOfFilms == '' || numberOfFilms == null || 
+        isNaN(numberOfFilms)) {
+        numberOfFilms =
+        +prompt('Сколько фильмов вы посмотрели за последнее время?', '');
+    }
+}
 
-console.log(fruit.indexOf('m', fruit.indexOf('m') + 1));
+start();
 
-const logg = 'Hello world';
+const personalMovieDB = {
+    count: numberOfFilms,
+    movies: {},
+    actors: {},
+    genres: [],
+    privat: false
+};
+console.log(personalMovieDB.count);
 
-//console.log(logg.slice(-6, -1));
+let a = null,
+    b = null;
 
-//console.log(logg.substring(6, 11));
 
-console.log(logg.substr(6, 5));
 
-const num = 12.2;
-console.log(Math.round(num));
+function rememberMyFilms() {
+    for ( let i = 1; i <= 2;) {
+        a = prompt('Какой фильм вы недавно смотрели?', '');
+        b = +prompt('Ваша оценка:', '');
+        // personalMovieDB.movies[a] = b;
+        // i++;
+        if (a != '' && a.length <= 50 && a != null && b != '' && b != null) {
+            personalMovieDB.movies[a] = b;
+            i++;
+            //console.log(i)
+        }
+        
+    }
+}
 
-const test = '12.2px';
-console.log(parseInt(test));
-console.log(parseFloat(test));
+//rememberMyFilms();
 
-console.dir(Number);
+function detectPersonalLevel() {
+    if (personalMovieDB.count < 10) {
+        alert('Маловато');
+    } else if (personalMovieDB.count > 9 && personalMovieDB.count <31 ) {
+        alert('Норм');
+    } else {
+        alert('Ого!');
+    }
+}
+
+//detectPersonalLevel();
+
+// const a = prompt('Какой фильм вы недавно смотрели?', ''),
+//       b = +prompt('Ваша оценка:', ''),
+//       c = prompt('Какой фильм вы недавно смотрели?', ''),
+//       d = +prompt('Ваша оценка:', '');
+
+// personalMovieDB.movies[a] = b;
+// personalMovieDB.movies[c] = d;
+
+
+function showMyDB() {
+    if (personalMovieDB.privat == false) {
+        console.log(personalMovieDB);
+    }
+}
+writeYourGenres();
+showMyDB();
+
+function writeYourGenres() {
+    for (let i = 1; i <= 3; i++) {
+        const a = prompt(`Ваш любимый жанр № ${i}`);
+        if (a != '' && a != null) {
+            personalMovieDB['genres'][i-1] = a;
+        } else {
+            i--;
+        }
+    }
+}
