@@ -1,24 +1,45 @@
 'use strict';
 
-function first() {
-    // Do something
-    setTimeout(function() {
-        console.log(1);
-    }, 500);
-}
+const options = {
+    name: 'test',
+    width: 1024,
+    height: 1024,
+    colors: {
+        border: 'black',
+        bg: 'red'
+    },
+    makeTest: function() {
+        console.log('Test');
+    }
+};
 
-function second() {
-    console.log(2);
-}
+//console.log(Object.keys(options).length);
+options.makeTest();
 
-first();
-second();
+const {border, bg} = options.colors;
+console.log(border);
 
-function learnJS(lang, callback) {
-    console.log(`Я учу: ${lang}`);
-    callback();
-}
+// console.log(options.name);
 
-learnJS('JavaScript', function() {
-    console.log('Я прошёл этот урок!');
-});
+// delete options.name;
+
+// console.log(options);
+
+// let counter = 0;
+// for (let key in options) {
+//     console.log(`Свойство ${key} == ${options[key]}`);
+//     counter++;
+// }
+
+// let ar = [12, 13, 'aa'];
+
+// for (let i of ar) {
+//     console.log(i);
+// }
+
+// const sss = 'asldkfjsl';
+
+// for (let i of sss) {
+//     console.log(i);
+// }
+// console.log(5);
