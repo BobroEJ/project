@@ -1,45 +1,33 @@
 'use strict';
 
-const options = {
-    name: 'test',
-    width: 1024,
-    height: 1024,
-    colors: {
-        border: 'black',
-        bg: 'red'
-    },
-    makeTest: function() {
-        console.log('Test');
-    }
-};
+const arr = [1, 2, 3, 6, 8];
+arr.sort(compareNum);
+// // arr[99] = 0;
+// // console.log(arr.length);
+console.log(arr);
 
-//console.log(Object.keys(options).length);
-options.makeTest();
+function compareNum(a, b) {
+    return a - b;
+}
 
-const {border, bg} = options.colors;
-console.log(border);
+// arr.forEach(function(item, i, arr) {
+//     console.log(`${i}: ${item} внутри массива ${arr}`);
+// });
 
-// console.log(options.name);
+// // arr.pop();
+// // arr.push(10);
 
-// delete options.name;
+// // console.log(arr);
 
-// console.log(options);
-
-// let counter = 0;
-// for (let key in options) {
-//     console.log(`Свойство ${key} == ${options[key]}`);
-//     counter++;
+// for (let i = 0; i < arr.length; i++) {
+//     console.log(arr[i]);
 // }
 
-// let ar = [12, 13, 'aa'];
-
-// for (let i of ar) {
-//     console.log(i);
+// for (let value of arr) {
+//     console.log(value);
 // }
 
-// const sss = 'asldkfjsl';
-
-// for (let i of sss) {
-//     console.log(i);
-// }
-// console.log(5);
+const str = prompt('', '');
+const products = str.split(', ');
+products.sort();
+console.log(products.join(';'));
