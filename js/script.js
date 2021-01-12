@@ -1,17 +1,18 @@
-"use strict";
+'use strict';
 
-let incr = 10,
-    decr = 10;
+const box = document.getElementById('box');
+console.log(box);
 
-// ++incr;
-// decr--;
+const btns = document.getElementsByTagName('button');
+console.log(btns);
 
-console.log(incr);
-console.log(decr);
+const circles = document.getElementsByClassName('circle');
+console.log(circles);
 
-console.log(2 + 2 * 2 === 8);
+const hearts = document.querySelectorAll('.heart');
+hearts.forEach(item => {
+    console.log(item);
+});
 
-const isChecked = true,
-      isClose = false;
-
-console.log(!isChecked || isClose);
+const oneHeart = document.querySelector('.heart');
+console.log(oneHeart);
