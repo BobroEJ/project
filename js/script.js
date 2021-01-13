@@ -1,51 +1,78 @@
+/* Задания на урок:
+
+1) Удалить все рекламные блоки со страницы (правая часть сайта)
+
+2) Изменить жанр фильма, поменять "комедия" на "драма"
+
+3) Изменить задний фон постера с фильмом на изображение "bg.jpg". Оно лежит в папке img.
+Реализовать только при помощи JS
+
+4) Список фильмов на странице сформировать на основании данных из этого JS файла.
+Отсортировать их по алфавиту 
+
+5) Добавить нумерацию выведенных фильмов */
+
 'use strict';
 
-const box = document.getElementById('box'),
-      btns = document.getElementsByTagName('button'),
-      circles = document.getElementsByClassName('circle'),
-      wrapper = document.querySelector('.wrapper'),
-      hearts = wrapper.querySelectorAll('.heart'),
-      oneHeart = wrapper.querySelector('.heart');
-
-// box.style.backgroundColor = 'blue';
-// box.style.width = '500px';
-
-box.style.cssText = 'background-color: blue; width; 500px';
-
-btns[1].style.borderRadius = '50%';
-circles[0].style.backgroundColor = 'red';
-
-// for (let i = 0; i < hearts.length; i++) {
-//     hearts[i].style.backgroundColor = 'blue';
-// }
-
-hearts.forEach(item => {
-    item.style.backgroundColor = 'blue';
+const movieDB = {
+    movies: [
+        "Логан",
+        "Лига справедливости",
+        "Лала лэнд",
+        "Одержимость",
+        "Скотт Пилигрим против..."
+    ]
+};
+//1) Удалить все рекламные блоки со страницы (три варианта)
+const ads1 = document.getElementsByClassName('promo__adv');
+const ads2 = document.querySelector('.promo__adv');
+const ads3 = document.querySelectorAll('.promo__adv > *');
+//ads1[0].remove();
+//ads2.remove();
+ads3.forEach(item => {
+    console.log(item);
+    item.remove();
 });
 
-const div = document.createElement('div');
-//const text = document.createTextNode('Тут был я');
+//2) Изменить жанр фильма, поменять "комедия" на "драма"
+const genre = document.querySelector('.promo__genre');
+genre.innerText = 'ДРАМА';
 
-div.classList.add('black');
+//3) Изменить задний фон постера с фильмом на изображение "bg.jpg". Оно лежит в папке img.
+//Реализовать только при помощи JS
+const bg = document.getElementsByClassName('promo__bg')[0];
+bg.style.background = 'url(img/bg.jpg)';
 
-wrapper.append(div);
-// wrapper.appendChild(div);
+//4) Список фильмов на странице сформировать на основании данных из этого JS файла.
+//Отсортировать их по алфавиту 
+//4.1
+// const oldListOfFilms = 
+//     document.getElementsByClassName('promo__interactive-item');
+//const films = movieDB.movies.sort();
+// for (let i = 0; i < films.length; i++) {
+//     oldListOfFilms[i].innerHTML = `${films[i]}<div class="delete"></div>`;
+//}
+//4.2
+const films = movieDB.movies.sort();
+const listOfFilms = document.createElement('ul');
+const title = document.getElementsByClassName('promo__interactive-title')[0];
+const oldFilms = document.getElementsByClassName('promo__interactive-list');
+oldFilms[0].remove();
+title.insertAdjacentElement('afterend', listOfFilms);
+for (let i = 0; i < films.length; i++) {
+    listOfFilms.innerHTML += `<li class="promo__interactive-item">${i + 1}. ${films[i]}
+        <div class="delete"></div></li><br>`;
+}
 
-//wrapper.prepend(div);
 
-//hearts[0].before(div);
-//hearts[0].after(div);
+// const promoTitle = document.querySelector('.promo__interactive-title');
 
-//wrapper.insertBefore(div, hearts[2]);
+//const oldListOfFilms = document.getElementsByClassName('promo__interactive-list')[0];
 
-//circles[0].remove();
-//wrapper.removeChild(hearts[1]);
+//promoTitle.insertAdjacentElement('afterend');
+// oldListOfFilms.remove();
+//oldListOfFilms.replaceWith(listOfFilms);
 
-//hearts[0].replaceWith(circles[0]);
-//wrapper.replaceChild(circles[0], hearts[0]);
-
-div.innerHTML = "<h1>Hello world</h1>";
-
-//div.textContent = 'Hello';
-
-div.insertAdjacentHTML('afterend', '<h2>Hello</h2>');
+// movieDB.forEach(item => {
+//     let listOfFilms.createElement('li').innerText = item;
+// });
