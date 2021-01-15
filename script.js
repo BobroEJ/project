@@ -1,26 +1,26 @@
-/* Задания на урок:
+const btns = document.querySelectorAll('button'),
+      wrapper = document.querySelector('.btn-block');
 
-1) Удалить все рекламные блоки со страницы (правая часть сайта)
+//console.log(btns[0].classList.length);
+// console.log(btns[0].classList.item(1));
+ console.log(btns[1].classList.add('red'));
+// console.log(btns[0].classList.remove('blue'));
+// console.log(btns[0].classList.toggle('blue'));
 
-2) Изменить жанр фильма, поменять "комедия" на "драма"
+// if (btns[0].classList.contains('blue')){
+//     console.log('asldkjf');
+// }
 
-3) Изменить задний фон постера с фильмом на изображение "bg.jpg". Оно лежит в папке img.
-Реализовать только при помощи JS
+btns[0].addEventListener('click', () => {
+    btns[1].classList.toggle('red');
+});
 
-4) Список фильмов на странице сформировать на основании данных из этого JS файла.
-Отсортировать их по алфавиту 
+wrapper.addEventListener('click', (event) => {
+    if (event.target && event.target.matches('button.red')) {
+        console.log('Hello!');
+    }
+});
 
-5) Добавить нумерацию выведенных фильмов */
-
-'use strict';
-
-const movieDB = {
-    movies: [
-        "Логан",
-        "Лига справедливости",
-        "Ла-ла лэнд",
-        "Одержимость",
-        "Скотт Пилигрим против..."
-    ]
-};
-
+const btn = document.createElement('button');
+btn.classList.add('red');
+wrapper.append(btn);
