@@ -1,27 +1,13 @@
-// touchstart
-// touchmove
-// touchend
-// touchenter
-// touchleave
-// touchcancel
+'use strict';
 
-window.addEventListener('DOMContentLoaded', () => {
-    const box = document.querySelector('.box');
+const p = document.querySelectorAll('p');
+console.log(p);
 
-    box.addEventListener('touchstart', (e) => {
-        console.log('touchstart');
-        console.log(e.touches);
-    });
-
-    // box.addEventListener('touchmove', (e) => {
-    //     console.log('touchmove');
-    // });
-
-    // box.addEventListener('touchend', (e) => {
-    //     console.log('touchend');
-    // });
-});
-
-// touches
-// targetTouches
-// changedTouches
+function loadScript(src) {
+    const script = document.createElement('script');
+    script.src = src;
+    script.async = false;
+    document.body.append(script);
+}
+loadScript('js/some.js');
+loadScript('js/test.js');
