@@ -23,63 +23,88 @@ const movieDB = {
         "Скотт Пилигрим против..."
     ]
 };
+
+const ads3 = document.querySelectorAll('.promo__adv > *'),
+      genre = document.querySelector('.promo__genre'),
+      bg = document.getElementsByClassName('promo__bg')[0],
+      films = movieDB.movies.sort(),
+      listOfFilms = document.createElement('ul'),
+      title = document.getElementsByClassName('promo__interactive-title')[0],
+      oldFilms = document.getElementsByClassName('promo__interactive-list'),
+      input = document.querySelector('.adding__input'),
+      btn = document.querySelector('button'),
+      ch = document.querySelector('[type="checkbox"]');
+
+//let dels = document.getElementsByClassName('delete');
+
+
 //1) Удалить все рекламные блоки со страницы (три варианта)
-//const ads1 = document.getElementsByClassName('promo__adv');
-//ads1[0].remove();
-//const ads2 = document.querySelector('.promo__adv');
-//ads2.remove();
-const ads3 = document.querySelectorAll('.promo__adv > *');
 ads3.forEach(item => {
     item.remove();
 });
 
 //2) Изменить жанр фильма, поменять "комедия" на "драма"
-const genre = document.querySelector('.promo__genre');
-//genre.innerText = 'ДРАМА';
-genre.textContent = 'ДРАМА';
+genre.innerText = 'ДРАМА';
 
 //3) Изменить задний фон постера с фильмом на изображение "bg.jpg". Оно лежит в папке img.
 //Реализовать только при помощи JS
-const bg = document.getElementsByClassName('promo__bg')[0];
-//bg.style.background = 'url(img/bg.jpg)';
 bg.style.backgroundImage = 'url(img/bg.jpg)';
 
 //4) Список фильмов на странице сформировать на основании данных из этого JS файла.
 //Отсортировать их по алфавиту 
-//4.1
-// const oldListOfFilms = 
-//     document.getElementsByClassName('promo__interactive-item');
-//const films = movieDB.movies.sort();
-// for (let i = 0; i < films.length; i++) {
-//     oldListOfFilms[i].innerHTML = `${films[i]}<div class="delete"></div>`;
-//}
-//4.2
-const films = movieDB.movies.sort();
-const listOfFilms = document.createElement('ul');
-const title = document.getElementsByClassName('promo__interactive-title')[0];
-title.classList.add('promo__interactive-list');
-const oldFilms = document.getElementsByClassName('promo__interactive-list');
+
+//-------------------------------------------------------------------------------------------
+
 oldFilms[0].remove();
 title.insertAdjacentElement('afterend', listOfFilms);
-for (let i = 0; i < films.length; i++) {
-    listOfFilms.innerHTML += `
-        <li class="promo__interactive-item">
-            ${i + 1}. ${films[i]}
-            <div class="delete"></div>
-        </li>
-        <br>`;
+
+function listRendering() {
+    listOfFilms.innerHTML = '';
+    for (let i = 0; i < films.length; i++) {
+        listOfFilms.innerHTML += `
+            <li class="promo__interactive-item">${i + 1}. ${films[i]}
+                <div class="delete"></div>
+            </li>
+            <br>
+            `;
+    }
+    addEvent();
+}
+
+listRendering();
+
+
+
+
+btn.addEventListener('click', (event) => {
+    event.preventDefault();
+    if (input.value.length > 21) {
+        films[films.length] = input.value[0].toUpperCase() + input.value.slice(1,22) + '...';
+    } else if (input.value == '') {       
+    } else {
+        films[films.length] = input.value[0].toUpperCase() + input.value.slice(1);
+    }
+    
+    if (ch.checked) {
+        console.log('Добавляем любимый фильм');
+    }
+
+    films.sort();
+    listRendering();
+});
+
+
+function addEvent() {
+    let dels = document.getElementsByClassName('delete');
+    for (let item of dels) {
+        item.addEventListener('click', () => {
+            //console.dir(item.parentElement.firstChild.textContent[0]);
+            let position = item.parentElement.firstChild.textContent[0]-1;
+            films.splice(position, 1);
+            listRendering();
+        });
+    }
 }
 
 
 
-// const promoTitle = document.querySelector('.promo__interactive-title');
-
-//const oldListOfFilms = document.getElementsByClassName('promo__interactive-list')[0];
-
-//promoTitle.insertAdjacentElement('afterend');
-// oldListOfFilms.remove();
-//oldListOfFilms.replaceWith(listOfFilms);
-
-// movieDB.forEach(item => {
-//     let listOfFilms.createElement('li').innerText = item;
-// });

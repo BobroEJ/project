@@ -1,18 +1,26 @@
-// console.log(document.head);
-// console.log(document.documentElement);
-console.log(document.body.childNodes);
-// console.log(document.body.firstChild);
-//console.log(document.body.firstElementChild);
-//console.log(document.body.lastChild);
+/* Задания на урок:
 
-//console.log(document.querySelector('#current').parentNode.parentNode);
-//console.log(document.querySelector('#current').parentElement);
+1) Удалить все рекламные блоки со страницы (правая часть сайта)
 
-//console.log(document.querySelector('[data-current="3"]').nextElementSibling);
+2) Изменить жанр фильма, поменять "комедия" на "драма"
 
-for (let node of document.body.childNodes) {
-    if (node.nodeName == '#text') {
-        continue;
-    }
-    console.log(node);
-}
+3) Изменить задний фон постера с фильмом на изображение "bg.jpg". Оно лежит в папке img.
+Реализовать только при помощи JS
+
+4) Список фильмов на странице сформировать на основании данных из этого JS файла.
+Отсортировать их по алфавиту 
+
+5) Добавить нумерацию выведенных фильмов */
+
+'use strict';
+
+const movieDB = {
+    movies: [
+        "Логан",
+        "Лига справедливости",
+        "Ла-ла лэнд",
+        "Одержимость",
+        "Скотт Пилигрим против..."
+    ]
+};
+
