@@ -1,16 +1,24 @@
 'use strict';
 
-const now = new Date();
+const box = document.querySelector('.box'),
+      btn = document.querySelector('button');
 
-console.dir(now.getTime());
-console.dir(now.valueOf());
+// const width = box.clientWidth;
+// const height = box.clientHeight;
+// const width = box.offsetWidth;
+// const height = box.offsetHeight;
+const width = box.scrollWidth;
+const height = box.scrollHeight;
 
-let start = new Date();
+console.log(width, height);
 
-for (let i = 0; i < 100000; i++) {
-    let some = i ** 3;
-}
+btn.addEventListener('click', () => {
+    // box.style.height = box.scrollHeight + 'px';
+    console.log(box.scrollTop);
+})
 
-let end = new Date();
+console.log(box.getBoundingClientRect().top);
 
-alert(`Цикл отработал за ${end - start} мс`);
+const style = window.getComputedStyle(box);
+
+console.log(style.display);
