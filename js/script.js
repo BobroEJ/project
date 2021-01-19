@@ -131,4 +131,35 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Menu cards
+
+    class MenuCards {
+        constructor(imgsrc, imgalt, title, descr, price) {
+            this.imgsrc = imgsrc;
+            this.imgalt = imgalt;
+            this.title = title;
+            this.descr = descr;
+            this.price = price;
+        }
+
+        createMenu() {
+            const menuContainer = 
+                document.querySelector('.menu__field > .container'),
+                  newMenu = document.createElement('div');
+            newMenu.classList.add('menu__item');
+            newMenu.innerHTML = `<img src="${this.imgsrc}" alt="${this.imgalt}">
+            <h3 class="menu__item-subtitle">Меню "${this.title}"</h3>
+            <div class="menu__item-descr">${this.descr}</div>
+            <div class="menu__item-divider"></div>
+            <div class="menu__item-price">
+                <div class="menu__item-cost">Цена:</div>
+                <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
+            </div>`;
+            menuContainer.append(newMenu);
+        }
+
+    }
+    // const nm = new MenuCards('img/tabs/vegy.jpg', 'new menu', 'Новое', 'asfadfbabvwavarcv aca afd!', 999);
+    // nm.createMenu();
+
 });
