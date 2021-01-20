@@ -206,4 +206,57 @@ window.addEventListener('DOMContentLoaded', () => {
         'menu__item'
     ).render();
 
+    // Forms
+
+    const forms = document.querySelectorAll('form');    //Получили массив с html-формами
+
+    const message = {              //Статусы запроса для вывода пользователю
+        loading: 'Загрузка',
+        success: 'Спасибо! Скоро мы с Вами свяжемся!',
+        failure: 'Что-то пошло не так...'
+    };
+
+    forms.forEach(item => {                 //Назначаем всем формам слушателя 'сабмит'
+        postData(item);
+    });
+
+    function postData(form) {                        //Назначаем слушателя 'сабмит'
+        form.addEventListener('submit', (e) => {        //Назначаем слушателя 'сабмит'
+            e.preventDefault();                         //убираем перезагрузку страницы
+
+            const statusMessage = document.createElement('div');     //создаём показывалку статуса запроса
+            statusMessage.classList.add('status');                   //просто для цсс
+            statusMessage.textContent = message.loading;             //выводим статус
+            form.append(statusMessage);                              //показываем
+
+            const request = new XMLHttpRequest();                    //создаём экземпляр запроса
+            request.open('POST', 'server.php');                      //собираем
+
+            request.setRequestHeader('Content-type', 'application/json');  //заголовок не нужен (устанавливается автоматически), если xmlhttprequest + FormData
+            
+            const formData = new FormData(form);                     //экземпляр формдаты, собирает данные с html-формы
+
+            const object = {};
+            formData.forEach(function(value, key){
+                object[key] = value;
+            });
+
+            const json = JSON.stringify(object);
+
+            request.send(json);                                  //отправляем данные
+
+            request.addEventListener('load', () => {                 //создаём слушатель, ждущий загрузки реквеста
+                if (request.status === 200) {           
+                    console.log(request.response);                   
+                    statusMessage.textContent = message.success;     //меняем сообщение пользователю
+                    form.reset();                                    //Сброс данных в полях формы
+                    setTimeout(() => {                               //таймер для ремува сообщения
+                        statusMessage.remove();
+                    }, 2000);
+                } else {
+                    statusMessage.textContent = message.failure;     //что-то не так
+                }
+            });
+        });
+    }
 });
