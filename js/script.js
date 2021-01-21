@@ -238,10 +238,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
             form.insertAdjacentElement('afterend',statusMessage);
 
-            const request = new XMLHttpRequest();                    //создаём экземпляр запроса
-            request.open('POST', 'server.php');                      //собираем
 
-            request.setRequestHeader('Content-type', 'application/json');  //заголовок не нужен (устанавливается автоматически), если xmlhttprequest + FormData
             
             const formData = new FormData(form);                     //экземпляр формдаты, собирает данные с html-формы
 
@@ -250,22 +247,38 @@ window.addEventListener('DOMContentLoaded', () => {
                 object[key] = value;
             });
 
-            const json = JSON.stringify(object);
 
-            request.send(json);                                  //отправляем данные
 
-            request.addEventListener('load', () => {                 //создаём слушатель, ждущий загрузки реквеста
-                if (request.status === 200) {           
-                    console.log(request.response);                   
-                    showThanksModal(message.success);     //меняем сообщение пользователю
-                    form.reset();                                    //Сброс данных в полях формы
-                    //setTimeout(() => {                               //таймер для ремува сообщения
-                        statusMessage.remove();
-                    //}, 2000);
-                } else {
-                    showThanksModal(message.failure);     //что-то не так
-                }
+            fetch('server1.php', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(object)
+            })
+            .then(data => data.text())
+            .then(data => {
+                console.log(data);
+                showThanksModal(message.success);
+                statusMessage.remove();
+            }).catch(() => {
+                showThanksModal(message.failure);
+            }).finally(() => {
+                form.reset();
             });
+
+            // request.addEventListener('load', () => {                 //создаём слушатель, ждущий загрузки реквеста
+            //     if (request.status === 200) {           
+            //         console.log(request.response);                   
+            //         showThanksModal(message.success);     //меняем сообщение пользователю
+            //         form.reset();                                    //Сброс данных в полях формы
+            //         //setTimeout(() => {                               //таймер для ремува сообщения
+            //             statusMessage.remove();
+            //         //}, 2000);
+            //     } else {
+            //         showThanksModal(message.failure);     //что-то не так
+            //     }
+            // });
         });
     }
 
@@ -292,4 +305,14 @@ window.addEventListener('DOMContentLoaded', () => {
             closeModal();
         }, 4000);
     }
+
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        body: JSON.stringify({name: 'John'}),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then(json => console.log(json));
 });
