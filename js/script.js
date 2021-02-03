@@ -6,25 +6,30 @@ window.addEventListener('DOMContentLoaded', () => {
           tabsContent = document.querySelectorAll('.tabcontent'),
           tabsParent = document.querySelector('.tabheader__items');
 
-    function hideTabContent() {
-        tabsContent.forEach(item => {
+    function hideContent(content, tabs = null) {
+        content.forEach(item => {
             item.classList.add('hide');
             item.classList.remove('show', 'fade');
         });
-
-        tabs.forEach(item => {
-            item.classList.remove('tabheader__item_active');
-        });
+        if (tabs) {
+            tabs.forEach(item => {
+                item.classList.remove('tabheader__item_active');
+            });
+        }
+        
     }
 
-    function showTabContent(i = 0) {
-        tabsContent[i].classList.add('show', 'fade');
-        tabsContent[i].classList.remove('hide');
-        tabs[i].classList.add('tabheader__item_active');
+    function showContent(content, i = 0, tabheader = null) {
+        content[i].classList.add('show', 'fade');
+        content[i].classList.remove('hide');
+        if (tabheader) {
+            tabheader[i].classList.add('tabheader__item_active');
+        }
+        
     }
 
-    hideTabContent();
-    showTabContent();
+    hideContent(tabsContent, tabs);
+    showContent(tabsContent, 0, tabs);
 
     tabsParent.addEventListener('click', (event) => {
         const target = event.target;
@@ -32,8 +37,8 @@ window.addEventListener('DOMContentLoaded', () => {
         if (target && target.matches('.tabheader__item')) {
             tabs.forEach((item, i) => {
                 if (item == target) {
-                    hideTabContent();
-                    showTabContent(i);
+                    hideContent(tabsContent, tabs);
+                    showContent(tabsContent, i, tabs);
                 }
             });
         }
@@ -325,7 +330,40 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     fetch('http://localhost:3000/menu')
-        .then(data => data.json())
+        .then(data => data.json());
         // .then(res => console.log(res));
+
+    // Slider
+
+    const sliders = document.querySelectorAll('.offer__slide'),
+          offerSlideCounter = document.querySelector('.offer__slider-counter'),
+          currentSlideCounter = document.querySelector('#current'),
+          maxSlideCount = 3;
+    let slideNumber = 0;
+
+    offerSlideCounter.addEventListener('click', (event) => {
+        const target = event.target;
+
+        if (target && target.matches('.offer__slider-prev') || target.matches('.offer__slider-prev *')) {
+            if (slideNumber-- == 0) {
+                slideNumber = maxSlideCount;
+            }
+            hideContent(sliders);
+            showContent(sliders, slideNumber);
+            changeCounter(slideNumber);
+        } else if (target && target.matches('.offer__slider-next') || target.matches('.offer__slider-next *')) {
+            if (slideNumber++ == maxSlideCount) {
+                slideNumber = 0;
+            }
+            hideContent(sliders);
+            showContent(sliders, slideNumber);
+            changeCounter(slideNumber);
+        }
+    });
+
+    function changeCounter(i) {
+        currentSlideCounter.innerText = getZero(i+1);
+    }
+
 
 });
